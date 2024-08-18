@@ -29,7 +29,6 @@ const ShipManagement = () => {
       pricePerTon: '150 USD',
       weight: '800 tons'
     },
-    // Add more sample data if needed
   ]);
   const [editingShip, setEditingShip] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -99,7 +98,7 @@ const ShipManagement = () => {
           <Entries
             initialData={editingShip}
             onUpdate={handleUpdateShip}
-            onClose={handleCloseDrawer}
+            onClose={handleCloseDrawer} // Pass handleCloseDrawer as onClose prop
           />
         </Box>
       </Drawer>

@@ -8,7 +8,10 @@ import AdminPanel from './components/Admin/AdminPanel';
 import Dashboard from './components/Admin/Dashboard';
 import Entries from './components/Admin/Entries';
 import ShipTracking from './components/Admin/ShipTracking';
-import ShipManagement from './components/Admin/ShipManagement'; // Import ShipManagement
+import ShipManagement from './components/Admin/ShipManagement'; 
+import UserPage from './components/User/UserPage';
+import Export from './components/User/Exporter';
+import Import from './components/User/Importer';
 
 function App() {
   return (
@@ -20,8 +23,11 @@ function App() {
         <Route path='dashboard' element={<Dashboard />} />
         <Route path='entries' element={<Entries />} />
         <Route path='ship-tracking' element={<ShipTracking />} />
-        <Route path='ship-management' element={<ShipManagement />} /> {/* Add Ship Management Route */}
+        <Route path='ship-management' element={<ShipManagement />} />
       </Route>
+      <Route path='/user' element={<UserPage />} />
+      <Route path='/user/export' element={<Export />} />
+      <Route path='/user/import' element={<Import />} />
     </Routes>
   );
 }

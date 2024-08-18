@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Box } from '@mui/material';
 
-const Entries = () => {
-  const { control, handleSubmit, reset, formState: { errors } } = useForm();
+const Entries = ({ initialData, onUpdate, onClose }) => {
+  const { control, handleSubmit, reset, formState: { errors } } = useForm({
+    defaultValues: initialData || {}
+  });
   const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [isSecondForm, setSecondForm] = useState(false);
 
@@ -25,7 +27,11 @@ const Entries = () => {
     reset(); 
     setConfirmDialogOpen(false);
     setSecondForm(false);
+    if (onClose) {
+      onClose();
+    } 
   };
+
 
   return (
     <Box className="p-4">
@@ -204,23 +210,23 @@ const Entries = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  select
                   label="Ship ID"
+                  select
                   fullWidth
                   variant="outlined"
                   margin="normal"
                   error={!!errors.shipId}
                   helperText={errors.shipId?.message}
                 >
-                  <MenuItem value={1}>Ship 1</MenuItem>
-                  <MenuItem value={2}>Ship 2</MenuItem>
-                  {/* Add more ship options here */}
+                  <MenuItem value="1">1</MenuItem>
+                  <MenuItem value="2">2</MenuItem>
+                  {/* Add more options as needed */}
                 </TextField>
               )}
             />
             <Box className="flex justify-end space-x-4 mt-4">
               <Button variant="outlined" onClick={handleCancel}>Cancel</Button>
-              <Button variant="contained" color="primary" type="submit">Confirm</Button>
+              <Button variant="contained" color="primary" type="submit">Submit</Button>
             </Box>
           </>
         )}
@@ -230,19 +236,13 @@ const Entries = () => {
         open={isConfirmDialogOpen}
         onClose={() => setConfirmDialogOpen(false)}
       >
-        <DialogTitle>Confirmation</DialogTitle>
+        <DialogTitle>Confirm Submission</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Are you sure you want to confirm this?
-          </DialogContentText>
+          <DialogContentText>Are you sure you want to submit the form?</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancel} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={handleConfirm} color="primary">
-            Confirm
-          </Button>
+          <Button onClick={handleCancel} color="primary">Cancel</Button>
+          <Button onClick={handleConfirm} color="primary">Confirm</Button>
         </DialogActions>
       </Dialog>
     </Box>
